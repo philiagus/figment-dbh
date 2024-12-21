@@ -1,0 +1,38 @@
+{
+    "name": "philiagus/figment-http",
+    "description": "PHP Figment Framework: Database Handler",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "php",
+        "figment",
+        "dbh"
+    ],
+    "authors": [
+        {
+            "name": "Andreas Eicher",
+            "email": "philiagus@philiagus.de",
+            "role": "lead"
+        }
+    ],
+    "require": {
+        "php": ">=8.4",
+        "philiagus/pdostatementbuilder": "~v1.5.0",
+        "ext-pdo": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*",
+        "phpspec/prophecy-phpunit": "*",
+        "ext-xdebug": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Philiagus\\Figment\\DBH\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Philiagus\\Figment\\DBH\\Test\\": "tests/"
+        }
+    }
+}
