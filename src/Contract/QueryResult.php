@@ -27,7 +27,7 @@ interface QueryResult
     // row
     public function fetchRow(FetchMode $fetchMode = FetchMode::ASSOC): false|array;
 
-    public function iterateRows(FetchMode $fetchMode = FetchMode::ASSOC): iterable;
+    public function traverseRows(FetchMode $fetchMode = FetchMode::ASSOC): \Traversable;
 
     public function allRows(FetchMode $fetchMode = FetchMode::ASSOC): array;
 
@@ -39,12 +39,12 @@ interface QueryResult
         bool   $propertiesAfterConstructor = false
     ): false|object;
 
-    public function iterateObjects(
+    public function traverseObjects(
         string $class = \stdClass::class,
         array  $constructorArguments = [],
         bool   $classNameInFirstColumn = false,
         bool   $propertiesAfterConstructor = false
-    ): iterable;
+    ): \Traversable;
 
     public function allObjects(
         string $class = \stdClass::class,
@@ -56,18 +56,18 @@ interface QueryResult
     // column
     public function fetchColumn(int $column = 0): mixed;
 
-    public function iterateColumn(int $column = 0): iterable;
+    public function traverseColumn(int $column = 0): \Traversable;
 
     public function allColumn(int $column = 0): array;
 
-    public function iterateKeyValue(): iterable;
+    public function traverseKeyValue(): \Traversable;
 
     public function allKeyValue(): array;
 
     // callback
     public function fetchCallback(\Closure $callback): mixed;
 
-    public function iterateCallback(\Closure $callback): iterable;
+    public function traverseCallback(\Closure $callback): \Traversable;
 
     public function allCallback(\Closure $callback): array;
 

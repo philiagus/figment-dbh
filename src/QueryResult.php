@@ -31,12 +31,12 @@ class QueryResult implements Contract\QueryResult
         return $this->statement->fetchAll($fetchMode->value);
     }
 
-    public function iterateObjects(
+    public function traverseObjects(
         string $class = \stdClass::class,
         array  $constructorArguments = [],
         bool   $classNameInFirstColumn = false,
         bool   $propertiesAfterConstructor = false
-    ): iterable
+    ): \Traversable
     {
         while ($object = $this->fetchObject($class, $constructorArguments, $classNameInFirstColumn, $propertiesAfterConstructor)) {
             yield $object;
@@ -70,7 +70,7 @@ class QueryResult implements Contract\QueryResult
         return $this->statement->fetchColumn($column);
     }
 
-    public function iterateColumn(int $column = 0): iterable
+    public function traverseColumn(int $column = 0): \Traversable
     {
         $this->statement->setFetchMode(\PDO::FETCH_COLUMN, $column);
         yield from $this->statement->getIterator();
@@ -81,7 +81,7 @@ class QueryResult implements Contract\QueryResult
         return $this->statement->fetchAll(\PDO::FETCH_COLUMN, $column);
     }
 
-    public function iterateKeyValue(): iterable
+    public function traverseKeyValue(): \Traversable
     {
         $this->statement->setFetchMode(\PDO::FETCH_KEY_PAIR);
         foreach ($this->statement->getIterator() as $array) {
@@ -104,14 +104,14 @@ class QueryResult implements Contract\QueryResult
         return $this->statement->fetch($fetchMode->value);
     }
 
-    public function iterateCallback(\Closure $callback): iterable
+    public function traverseCallback(\Closure $callback): \Traversable
     {
-        foreach ($this->iterateRows(FetchMode::ASSOC) as $index => $row) {
+        foreach ($this->traverseRows(FetchMode::ASSOC) as $index => $row) {
             yield $index => $callback(...$row);
         }
     }
 
-    public function iterateRows(FetchMode $fetchMode = FetchMode::ASSOC): iterable
+    public function traverseRows(FetchMode $fetchMode = FetchMode::ASSOC): \Traversable
     {
         while ($row = $this->statement->fetch($fetchMode->value)) {
             yield $row;
