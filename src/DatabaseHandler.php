@@ -12,14 +12,14 @@ declare(strict_types=1);
 
 namespace Philiagus\Figment\DBH;
 
-use Philiagus\Figment\Container\Attribute\Instance;
+use Philiagus\Figment\Container\Attribute\Inject;
 use Philiagus\PDOStatementBuilder\Statement;
 
 readonly class DatabaseHandler implements Contract\DatabaseHandler
 {
 
     public function __construct(
-        #[Instance('figment.dbh.pdo')]
+        #[Inject('figment.dbh.pdo')]
         public \PDO $pdo
     )
     {
